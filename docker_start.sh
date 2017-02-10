@@ -16,7 +16,7 @@ if [ ! -f ./src/config.js ]; then
     cp -R -u -p ./src/config_dist.js ./src/config.js
 fi
 
-forever start -l /wrapper/logs/forever.log ./src/app.js
+forever start -l /wrapper/logs/forever.log ./app.js
 forever list
 
 tail -f /wrapper/logs/forever.log
