@@ -1,11 +1,10 @@
 #!/bin/bash
 
-cd ./src
 git pull
 npm install
 
 if [ -f /config/config.js ]; then
-    cp /config/config.js ./src/config.js
+    cp /config/config.js ./config.js
 fi
 
 forever restartall
