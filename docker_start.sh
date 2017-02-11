@@ -15,7 +15,11 @@ if [ ! -f ./config.js ]; then
     cp -R -u -p ./config_dist.js ./config.js
 fi
 
-forever start -l -a /wrapper/logs/forever.log ./app.js
+if [ -f /wrapper/logs/forever.log ]; then
+    mv /wrapper/logs/forever.log /wrapper/logs/forever.log.prev
+fi
+
+forever start -l /wrapper/logs/forever.log ./app.js
 forever list
 
 tail -f /wrapper/logs/forever.log
