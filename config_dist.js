@@ -70,21 +70,21 @@ config.wrapper = { //teenuse seadistus
     id: 'concat', // Unikaalne lühinimi
     title: 'Lihtne konjateneerija', //Avalik nimi
     description: 'Konkateneerib etteantud failid üheks suureks failiks', //Kirjeldus
-    port: 3003, //port
-    class: 'simpleLocalCommand',    //wrapperi failinimi wrapper kaustast, mida utiliidi käivitamiseks kasutatakse
-    command: 'cat [data]',  // utiliidi käsurea käsk
-    requestConf: { //Päringu seadistus
-        requestBodyParamsMappings: { //Päringu post parameetrid
+    port: 3002, // port
+    class: 'simpleLocalCommand',    // wrapperi failinimi wrapper kaustast, mida utiliidi käivitamiseks kasutatakse
+    command: { commandTemplate: 'cat [data]' },  // utiliidi käsurea käsk
+    requestConf: { // Päringu seadistus
+        requestBodyParamsMappings: { // Päringu post parameetrid
             isAsync: { //parameeter isAsync
                 type: config.paramTypes.SELECT, //Tüüp. Võimalikud väärtused: config.paramTypes.SELECT ja config.paramTypes.TEXT
-                options: ['0', '1'], //Võimalikud sobivad väärtused
-                value: '1', //Soovituslik vaikeväärtus
-                filter: function (value) { //parameerile rakendatav filter. Antud juhul viiaks väärtus boolean kujule
+                options: ['0', '1'], // Võimalikud sobivad väärtused
+                value: '1', // Soovituslik vaikeväärtus
+                filter: function (value) { // parameerile rakendatav filter. Antud juhul viiaks väärtus boolean kujule
                     return value == 1;
                 },
-                required: true, //kas mittetühi väärtus on nõutud
-                allowEmpty: false, //kas parameeter peab olema saadetud
-                validator: function (value, request) { //filtreeritud väärtuse valideerimine
+                required: true, // kas mittetühi väärtus on nõutud
+                allowEmpty: false, // kas parameeter peab olema saadetud
+                validator: function (value, request) { // filtreeritud väärtuse valideerimine
                     if( typeof value != 'boolean' ){
                         request.setMessage('isAsync', 'Peab olema boolean');
                         return false;
@@ -93,19 +93,19 @@ config.wrapper = { //teenuse seadistus
                 }
             }
         },
-        requestFiles: { //Päringuga saadetavad failid
-            content: { //Faili võti
-                type: 'text', //Ressursi tüübi võti
-                sizeLimit: 0, //Suuruse piirang
-                sizeUnit: 'byte',//Suuruse piirangu ühik
-                isList: true //Kas tegemist võib olla ka failide listuga
+        requestFiles: { // Päringuga saadetavad failid
+            content: { // Faili võti
+                type: 'text', // Ressursi tüübi võti
+                sizeLimit: 0, // Suuruse piirang
+                sizeUnit: 'byte',// Suuruse piirangu ühik
+                isList: true // Kas tegemist võib olla ka failide listuga
             }
         }
     },
     outputTypes: [ //teenuse väljundressursside kirjldused
         {
-            type: 'text',   //ressursi tüüp
-            key: 'output'   //väljundressursi võti
+            type: 'text',   // ressursi tüüp
+            key: 'output'   // väljundressursi võti
         }
     ],
     sessionMaxLifetime: 600 // sessiooni maksimaalne kestvus
