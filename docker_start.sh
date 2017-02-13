@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd /wrapper
 git pull
 npm install
 
